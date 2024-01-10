@@ -4,16 +4,15 @@
 
 
 
-
-<a>Home</a>
+<div>
     {% for post in context.posts %}
-    
+    <article>
     <h1>{{post.title}}</h1>
-    <p>By {{post.author}} on {{post.date_posted}}</p>
+    <a>By {{post.author}} on {{post.date_posted}}</a>
     <p>{{post.content}}</p>
-
+    </article>
     {% endfor %}
-
+</div>
 
     
 
