@@ -1,49 +1,7 @@
-from flask import Flask, render_template, flash, redirect, url_for, request
-from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
-
-from forms import RegistrationForm, LoginForm
-
-import os
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '4d25c03a2652dbba3ed90d04b40004bc'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'site.db')
-db = SQLAlchemy(app)
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20),unique=True,nullable=False)
-    email = db.Column(db.String(120),unique=True,nullable=False)
-    image_file = db.Column(db.String(20),nullable=False,default='default.jpg')
-    password = db.Column(db.String(60),nullable=False)
-    posts = db.relationship('Post',backref = 'author', lazy=True) #this is not column, this is just relationship! - can use post.author - will show User data!
-
-    def __repr__(self):
-        return f"User('{self.username}', '{self.email}','{self.image_file}')"
-
-
-class Post(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
-    title = db.Column(db.String(100),nullable=False)
-    date_posted = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
-    content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-
-
-    def __repr__(self):
-        return f"Post('{self.title}','{self.date_posted}')"
-
-
-
-
-
-    
-
-
+from flask import render_template,url_for,flash,redirect, request
+from flaskblog import app
+from flaskblog.forms import RegistrationForm, LoginForm
+from flaskblog.models import User, Post
 
 posts = [
     {
@@ -59,6 +17,8 @@ posts = [
         'date_posted': 'April 21, 2018'
     }
 ]
+
+
 
 
 
@@ -125,29 +85,3 @@ def login():
 @app.route('/logout')
 def logout():
     return "HELE qoshmamushuq"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if __name__ == '__main__':
-    app.run(debug = True)
