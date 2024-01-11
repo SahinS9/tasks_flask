@@ -22,16 +22,26 @@
                 {{form.password}}
             </div>
 
+            <div class = 'form-check'>
+                {{form.remember}}
+                {{form.remember.label}}
+
+            </div>
+
         </fieldset>
 
         <div class = 'form-group'>
             {{form.submit}}
         </div>
 
+        <small>
+            <a href = "#">Forgot Password?</a>
+        </small>
+
     </form>
 
     <div>
-        <small>Do Not have account? <a href = "{{ url_for ('register')}}">Log in</a> </small> 
+        <small>Do Not have account? <a href = "{{ url_for ('register')}}">Sign up</a> </small> 
     </div>
 
 </div>
