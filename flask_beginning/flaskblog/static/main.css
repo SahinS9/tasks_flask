@@ -3,6 +3,12 @@ span.error {
     
 }
 
+.rounded-account-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
 .alert-success{
     color:green;
 }

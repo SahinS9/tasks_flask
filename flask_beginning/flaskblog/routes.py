@@ -1,6 +1,6 @@
 from flask import render_template,url_for,flash,redirect, request
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm
+from flaskblog.forms import RegistrationForm, LoginForm, AccountForm
 from flaskblog.models import User, Post
 from flask_login import login_user, logout_user, login_required, current_user #it is like request.user of Django
 
@@ -54,9 +54,6 @@ def register():
         print(form.errors)
 
     if form.validate_on_submit():
-
-        
-
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username = form.username.data, email = form.email.data, password = hashed_password)
 
@@ -111,7 +108,23 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route('/account')
+@app.route('/account', methods = ['GET','POST'])
 @login_required
 def account():
-    return render_template('account.html', title = 'Account')
+    image_file = url_for('static', filename = 'profile_pics/' + current_user.image_file)
+    form = AccountForm()
+
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        
+        db.session.commit()
+        flash('user info has been updated', 'success')
+        return redirect(url_for('account'))
+
+    #this is for autofill of the userinfo on this page
+    elif request.method == "GET":
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    return render_template('account.html', title='Account', 
+                            image_file=image_file, form = form)
