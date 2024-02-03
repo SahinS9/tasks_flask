@@ -13,9 +13,16 @@
 
     <a href = "{{ url_for('home')}}">Home</a>
     <a href = "{{ url_for('about')}}">About</a>
+
+    {% if current_user.is_authenticated %}
+    <a href = "{{url_for('account')}}">Account</a>
+    <a href = "{{ url_for('logout')}}">logout</a>
+    {% else %}
     <a href = "{{ url_for('register')}}">Register</a>
     <a href = "{{ url_for('login')}}">login</a>
-    <a href = "{{ url_for('logout')}}">logout</a>
+    {%endif%}
+
+    
 
 <body>
     {% with messages = get_flashed_messages(with_categories = true) %}
@@ -23,7 +30,7 @@
     {% if messages %}
 
     {%for category, message in messages%}
-        <div class = 'alert- {{category}}'>
+        <div class = 'alert-{{category}}'>
             {{message}}
         </div>
     {%endfor%}

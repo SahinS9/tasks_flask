@@ -1,0 +1,12 @@
+span.error {
+    color: red;
+    
+}
+
+.alert-success{
+    color:green;
+}
+
+.alert-danger{
+    color: red;
+}
