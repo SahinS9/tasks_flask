@@ -4,6 +4,11 @@ from flaskblog.forms import RegistrationForm, LoginForm, AccountForm
 from flaskblog.models import User, Post
 from flask_login import login_user, logout_user, login_required, current_user #it is like request.user of Django
 
+#for managing profile pic upload
+import secrets
+import os
+from PIL import Image #to resize images for save up memory
+
 
 posts = [
     {
@@ -108,6 +113,20 @@ def logout():
     return redirect(url_for('home'))
 
 
+#utils
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8) #create random (distinct) name for pics
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    output_size = (125,125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+    
+    return picture_fn
+
+
 @app.route('/account', methods = ['GET','POST'])
 @login_required
 def account():
@@ -115,6 +134,10 @@ def account():
     form = AccountForm()
 
     if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+
         current_user.username = form.username.data
         current_user.email = form.email.data
         
