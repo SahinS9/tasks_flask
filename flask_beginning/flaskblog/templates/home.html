@@ -8,7 +8,8 @@
     {% for post in posts %}
     <article>
     <h1>{{post.title}}</h1>
-    <a>By {{post.author}} on {{post.date_posted}}</a>
+    <img class = 'rounded-circle article-img' src= "{{url_for('static', filename = 'profile_pics/' + post.author.image_file) }}"> 
+    <a>By {{post.author.username}} </a> on <p>{{post.date_posted.strftime('%Y-%m-%d')}}</p>
     <p>{{post.content}}</p>
     </article>
     {% endfor %}
