@@ -4,12 +4,14 @@
 
 
 
+
 <div>
     {% for post in posts %}
     <article>
-    <h1>{{post.title}}</h1>
+    <h1><a href = "{{ url_for('post',post_id=post.id) }}">{{post.title}}</a></h1>
     <img class = 'rounded-circle article-img' src= "{{url_for('static', filename = 'profile_pics/' + post.author.image_file) }}"> 
-    <a>By {{post.author.username}} </a> on <p>{{post.date_posted.strftime('%Y-%m-%d')}}</p>
+    <a>{{post.author.username}} </a> 
+    <p>{{post.date_posted.strftime('%Y-%m-%d')}}</p>
     <p>{{post.content}}</p>
     </article>
     {% endfor %}

@@ -1,0 +1,56 @@
+{% extends 'index.html'%}
+
+{% block content %}
+
+<article>
+    <h1>{{post.title}}</h1>
+    <img class = 'rounded-circle article-img' src= "{{url_for('static', filename = 'profile_pics/' + post.author.image_file) }}"> 
+    <a>{{post.author.username}} </a> 
+    <p>{{post.date_posted.strftime('%Y-%m-%d')}}</p>
+    <p>{{post.content}}</p>
+    {% if post.author == current_user%}
+    <button><a href = '{{ url_for("update_post",post_id=post.id) }}' >Edit Post</a></button>
+
+        <!-- Button to trigger delete confirmation modal -->
+        <button id="deleteBtn">Delete Post</button>
+
+        <!-- Modal for deletion confirmation -->
+        <div id="deleteModal" class="modal" style="display: none;">
+            <!-- Show this only when deleteBtn is clicked -->
+                <p>Are you sure you want to delete the post? This action cannot be undone.</p>
+                <button id="yesBtn" onclick="deletePost()">Yes</button>
+                <button class="cancel" onclick="closeModal()">No</button>
+        </div>
+
+
+{% endif %}
+</article>
+
+<script>
+    // JavaScript functions for modal interaction
+    function openModal() {
+        document.getElementById('deleteModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('deleteModal').style.display = 'none';
+    }
+
+    function deletePost() {
+        // Create a form element
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '{{ url_for("delete_post", post_id=post.id) }}';
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    // Attach event listener to the delete button
+    document.getElementById('deleteBtn').addEventListener('click', openModal);
+
+    // Attach event listener to the "No" button to close the modal
+    document.querySelector('.cancel').addEventListener('click', closeModal);
+</script>
+
+
+{% endblock content %}
