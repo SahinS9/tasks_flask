@@ -1,5 +1,5 @@
 from flaskblog import db, login_manager
-from flask_login import UserMixin
+from flask_login import UserMixin #provides is_authenticated, is_active, is_anonymous, and get_id for current_user
 from datetime import datetime
 
 @login_manager.user_loader
