@@ -50,4 +50,112 @@ article {
     border-radius: 50px;
   }
   
-  
+
+/* navigation bar starts */
+body {
+  margin: 0;
+  /* font-family: 'Arial', sans-serif; */
+}
+
+.navigation-bar {
+  background-color: #075972;
+  overflow: hidden;
+  color: white;
+}
+
+.navigation-bar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navigation-bar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.right-side {
+  float: right;
+}
+
+.left-side {
+  float: left;
+}
+
+/* navigation bar ends */
+
+
+/* left side of home page */
+/* .left-top {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 1.5em;
+}
+
+.left-top a {
+  display: block;
+  padding: 10px;
+  background-color: #3498db;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+} */
+/* left side of home page ENDs */
+
+
+
+
+
+
+
+/* page button design */
+div.pages {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+div.pages a {
+  display: block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+}
+
+div.pages a.current-page {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+div.pages a.other-page:hover {
+  background-color: #f0f0f0;
+}
+
+div.pages p.more-pages {
+  margin: 0 5px; 
+  color: #666;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  div.pages {
+    flex-wrap: wrap;
+  }
+
+  div.pages a, div.pages p.more-pages {
+    margin: 5px 0;
+  }
+}
+/* page button design ends */

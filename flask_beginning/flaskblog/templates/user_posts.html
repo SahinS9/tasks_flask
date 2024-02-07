@@ -1,15 +1,8 @@
-{% extends 'index.html'%}
+{% extends 'index.html' %}
 
-{%block content%}
+{% block content %}
 
-<div class = 'left-side'>
-    {% if current_user.is_authenticated %}
-        <div class = 'left-top'>
-            <a  href= '{{url_for("new_post")}}'>New Post</a>
-        </div>
-    {% endif %}
-</div>
-
+<h1 class="author">Posts by {{user.username}} ({{posts.total}})</h1>
 
 
 <div class="center">
@@ -36,9 +29,9 @@
 
             {%if page_num%}
                 {% if posts.page == page_num %}
-                    <a class="current-page" href = "{{ url_for('home', page = page_num) }}" >{{page_num}}</a>
+                    <a class="current-page" href = "{{ url_for('user_posts',username=user.username, page = page_num) }}" >{{page_num}}</a>
                 {% else %}
-                    <a class="other-page" href = "{{ url_for('home', page = page_num) }}" >{{page_num}}</a>
+                    <a class="other-page" href = "{{ url_for('user_posts', username=user.username, page = page_num) }}" >{{page_num}}</a>
                 {% endif %}
 
             {% else %}
@@ -47,6 +40,5 @@
 
         {% endfor %}
     </div>
-
 
 {% endblock content %}

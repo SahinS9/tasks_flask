@@ -12,7 +12,10 @@ from PIL import Image #to resize images for save up memory
 @app.route('/')
 @app.route('/home')
 def home():
-    posts = Post.query.order_by(Post.date_posted.desc()).all()
+    # posts = Post.query.order_by(Post.date_posted.desc()).all() #need to change it for pagination
+    page = request.args.get('page',default = 1, type = int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page = page, per_page = 4)
+
     return render_template('home.html', posts = posts)
 
 @app.route('/about')
@@ -192,4 +195,13 @@ def delete_post(post_id):
     flash('Your post has been deleted!','success')
     return redirect(url_for('home'))
 
+@app.route("/user/<string:username>")
+def user_posts(username):
+    # posts = Post.query.order_by(Post.date_posted.desc()).all() #need to change it for pagination
+    user = User.query.filter_by(username=username).first_or_404()
+    page = request.args.get('page',default = 1, type = int)
+    posts = Post.query.filter_by(author = user)\
+                .order_by(Post.date_posted.desc())\
+                .paginate(page = page, per_page = 4)
 
+    return render_template('user_posts.html', posts = posts, user=user)
