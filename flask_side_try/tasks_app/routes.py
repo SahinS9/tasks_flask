@@ -27,3 +27,50 @@ def register():
     context = {'title':title,
                 'form': form}
     return render_template('register.html', **context)
+
+@app.route('/login')
+def login():
+    title = 'Login'
+
+    context = {'title':title
+                ,'form':form}
+    return "Login Page"
+
+
+
+
+
+@app.route('/logout', methods = ['POST'])
+def logout():
+    title = 'Logout'
+
+    context = {'title':title
+                ,'form':form}
+    return "Logout Page"
+
+
+
+
+
+@app.route('/account', methods = ['GET','POST'])
+def account():
+    title = 'Account'
+
+    context = {'title':title
+                ,'form':form}
+    return "Account Page"
+
+
+
+
+
+
+
+@app.route('/main', methods = ['GET','POST'])
+def main():
+    title = 'Main'
+    form = TaskForm()
+    context = {'title':title
+                ,'form':form}
+    return render_template('main.html', **context)
+

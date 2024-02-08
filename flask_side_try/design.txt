@@ -1,0 +1,18 @@
+Application for task tracking
+
+Navigation bar
+
+Home page
+
+- N_of_active tasks
+- Finished tasks till now
+- finished tasks prev 7 days
+
+Account page
+right_side
+- n_of_task without tags
+- tags (tasks inside them)
+
+center 
+- new tasks option (teux-deux style)
+- defined tasks 
